@@ -1,8 +1,9 @@
-import 'package:banana/screen/login.dart';
+
+import 'package:banana/config/config.dart';
+import 'package:banana/screen/screens.dart';
 import 'package:flutter/material.dart';
 
-import 'screen/not_found_screen.dart';
-import 'screen/product.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -14,10 +15,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My App',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/products',
+      theme: AppTheme().getTheme(),
+      initialRoute: '/login',
       routes: {
         '/login': (context) => Login(),
         '/products': (context) => const Products(),
+        '/products/:id': (context) {
+          final String id =
+              ModalRoute.of(context)!.settings.arguments.toString();
+          return ProductDetailPage(id: id);
+        },
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(

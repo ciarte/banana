@@ -7,8 +7,8 @@ Widget buildUsernameField(void Function(String) onSaved) {
         return 'Please enter a username';
       } else if (value.length <= 4) {
         return 'Username must be longer than 5 characters';
-      } else if (!RegExp(r'^[a-zA-Z]+$').hasMatch(value)) {
-        return 'Username can only contain letters';
+      } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+        return 'Username can only contain letters or numbers';
       }
       return null;
     },
@@ -20,14 +20,13 @@ Widget buildUsernameField(void Function(String) onSaved) {
   );
 }
 
-
-
 Widget buildPasswordField(void Function(String) onSaved) {
   return TextFormField(
     validator: (value) {
       if (value!.isEmpty) {
         return 'Please enter a password';
-      } else if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$').hasMatch(value)) {
+      } else if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$')
+          .hasMatch(value)) {
         return 'Password must contain at least one lowercase letter, one uppercase letter, and one number';
       }
       return null;
