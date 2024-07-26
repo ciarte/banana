@@ -1,5 +1,6 @@
-import 'package:banana/model/product_model.dart';
-import 'package:banana/service/api_services.dart';
+import 'package:banana/features/products/data/datasource/product_api_service.dart';
+import 'package:banana/features/products/domain/entities/product.dart';
+
 import 'package:flutter/material.dart';
 
 class ProductProvider extends ChangeNotifier {
@@ -14,7 +15,7 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      List<Product> products = await ApiService.fetchProductList();
+      List<Product> products = await ProductApiService.fetchProductList();
       _products = products;
     } catch (e) {
       print('Error: $e');
@@ -24,5 +25,3 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-//TODO: implementar providers
