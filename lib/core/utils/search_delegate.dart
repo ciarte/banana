@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:banana/core/widgets/bad_state.dart';
 import 'package:banana/features/products/presentation/screen/product_detail_page.dart';
 import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
 import 'package:banana/features/products/presentation/widgets/widgets.dart';
@@ -82,15 +83,9 @@ class ProductSearchDelegate extends SearchDelegate<Product?> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(
-              child: Center(
-            child: Column(
-              children: [
-                Image.asset('assets/images/banana_sad.png'),
-                const Text('Product not found... try again')
-              ],
-            ),
-          ));
+          return const BadState(
+            text: 'Product not found... try again',
+          );
         }
         final suggestions = snapshot.data!;
 
@@ -130,15 +125,9 @@ class ProductSearchDelegate extends SearchDelegate<Product?> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(
-              child: Center(
-            child: Column(
-              children: [
-                Image.asset('assets/images/banana_sad.png'),
-                const Text('Product not found... try again')
-              ],
-            ),
-          ));
+          return const BadState(
+            text: 'Product not found... try again',
+          );
         }
         final suggestions = snapshot.data!;
 
