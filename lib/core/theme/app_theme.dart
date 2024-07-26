@@ -8,15 +8,16 @@ class AppTheme {
           borderSide: BorderSide(color: color, width: 2));
 
   ThemeData getTheme() => ThemeData(
-        primaryColor: AppPallete.seedColor,
-        fontFamily: 'Roboto',
-        scaffoldBackgroundColor: AppPallete.backgroundColor,
-        inputDecorationTheme: InputDecorationTheme(
-          contentPadding: const EdgeInsets.all(20),
-          enabledBorder: _inputBorder(),
-          focusedBorder: _inputBorder(AppPallete.focusBorderColor),
-          errorBorder: _inputBorder(AppPallete.errorColor),
-          focusedErrorBorder: _inputBorder(AppPallete.focusBorderColor),
-        ),
-      );
+      primaryColor: AppPallete.seedColor,
+      fontFamily: 'Roboto',
+      scaffoldBackgroundColor: AppPallete.backgroundColor,
+      inputDecorationTheme: InputDecorationTheme(
+        contentPadding: const EdgeInsets.all(20),
+        enabledBorder: _inputBorder(),
+        focusedBorder: _inputBorder(AppPallete.focusBorderColor),
+        errorBorder: _inputBorder(AppPallete.errorColor),
+        focusedErrorBorder: _inputBorder(AppPallete.focusBorderColor),
+      ),
+      appBarTheme: const AppBarTheme(
+          centerTitle: true, color: AppPallete.backgroundColor));
 }

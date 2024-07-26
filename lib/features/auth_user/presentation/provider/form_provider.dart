@@ -1,9 +1,15 @@
-import 'package:banana/core/theme/app_pallete.dart';
-import 'package:banana/features/auth/data/datasource/aut_api_service.dart';
+import 'package:banana/features/auth_user/domain/usecase/login_usecase.dart';
+import 'package:banana/features/auth_user/domain/entities/user.dart';
 import 'package:flutter/material.dart';
 
+import 'package:banana/core/theme/app_pallete.dart';
+
 class FormProvider with ChangeNotifier {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final LoginUseCase loginUseCase;
+
+  FormProvider(this.loginUseCase);
+
   String _username = '';
   String _password = '';
   bool _isLoading = false;
@@ -38,22 +44,21 @@ class FormProvider with ChangeNotifier {
       _invalidCredentials = false;
       notifyListeners();
 
-      bool credentialsValid = await AuthenticationApiService.verifyCredentials(
-          _username, _password);
-
-      _isLoading = false;
-      if (credentialsValid) {
-        // Navigate to the next screen
+      try {
+        User credentialsValid = await loginUseCase.login(_username, _password);
+        print(credentialsValid);
+        _isLoading = false;
         if (context.mounted) {
           Navigator.pushReplacementNamed(context, '/products');
         }
-      } else {
+      } catch (e) {
+        _isLoading = false;
         _invalidCredentials = true;
         notifyListeners();
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Invalid Credentials'),
+              content: Text('Wrong Credentials, please try again.'),
               backgroundColor: AppPallete.errorColor,
             ),
           );

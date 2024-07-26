@@ -2,8 +2,13 @@ import 'package:banana/core/theme/app_theme.dart';
 import 'package:banana/features/products/presentation/screen/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'features/auth/presentation/provider/form_provider.dart';
-import 'features/auth/presentation/screen/login.dart';
+import 'features/auth_user/data/datasource/aut_api_service.dart';
+import 'features/auth_user/data/repositories/auth_repository_impl.dart';
+import 'features/auth_user/domain/usecase/login_usecase.dart';
+import 'features/auth_user/presentation/provider/form_provider.dart';
+import 'features/auth_user/presentation/screen/login.dart';
+import 'features/products/data/datasource/product_api_service.dart';
+import 'features/products/presentation/provider/product_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +20,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => FormProvider())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => FormProvider(
+            LoginUseCase(
+              AuthRepositoryImpl(AuthenticationApiService()),
+            ),
+          ),
+        ),
+        ChangeNotifierProvider(
+            create: (context) => ProductProvider(ProductApiService())),
+      ],
       child: MaterialApp(
         title: 'My App',
         debugShowCheckedModeBanner: false,
@@ -23,7 +38,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/login',
         routes: {
           '/login': (context) => const Login(),
-          '/products': (context) => const Products(),
+          '/products': (context) => const ProductsPage(),
           '/products/:id': (context) {
             final String id =
                 ModalRoute.of(context)!.settings.arguments.toString();

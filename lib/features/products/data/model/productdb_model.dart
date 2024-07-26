@@ -146,7 +146,7 @@ class ProductDB {
         id: json["id"] ?? 0,
         title: json["title"] ?? '',
         description: json["description"] ?? '',
-        category: categoryValues.map[json["category"]]!,
+        category: categoryValues.map[json["category"]] ?? CategoryDB.FURNITURE,
         price: (json["price"] ?? 0).toDouble(),
         discountPercentage: (json["discountPercentage"] ?? 0).toDouble(),
         rating: (json["rating"] ?? 0).toDouble(),
@@ -159,10 +159,12 @@ class ProductDB {
         warrantyInformation: json["warrantyInformation"] ?? '',
         shippingInformation: json["shippingInformation"] ?? '',
         availabilityStatus:
-            availabilityStatusValues.map[json["availabilityStatus"]]!,
+            availabilityStatusValues.map[json["availabilityStatus"]] ??
+                AvailabilityStatus.LOW_STOCK,
         reviews: List<ReviewDB>.from(
             json["reviews"]?.map((x) => ReviewDB.fromJson(x)) ?? []),
-        returnPolicy: returnPolicyValues.map[json["returnPolicy"]]!,
+        returnPolicy: returnPolicyValues.map[json["returnPolicy"]] ??
+            ReturnPolicy.NO_RETURN_POLICY,
         minimumOrderQuantity: json["minimumOrderQuantity"] ?? 0,
         meta: MetaDB.fromJson(json["meta"] ?? {}),
         images: List<String>.from(json["images"]?.map((x) => x) ?? []),

@@ -1,27 +1,39 @@
-import 'package:banana/features/products/data/datasource/product_api_service.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
+import 'package:banana/features/products/presentation/provider/product_provider.dart';
 import 'package:banana/features/products/presentation/widgets/detail_product.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
   final String id;
 
   const ProductDetailPage({super.key, required this.id});
 
   @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ProductProvider>(context, listen: false)
+          .fetchProductById(widget.id);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Product>(
-      future: ProductApiService.fetchProductById(id),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+    return Consumer<ProductProvider>(
+      builder: (context, productProvider, child) {
+        if (productProvider.isLoading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return const Center(child: Text('Error al cargar el producto'));
-        } else if (!snapshot.hasData) {
+        } else if (productProvider.product == null) {
           return const Center(child: Text('No se encontró el producto'));
         }
 
-        Product product = snapshot.data!;
+        Product product = productProvider.product!;
         return Scaffold(
           appBar: AppBar(
             title: Text(product.title),

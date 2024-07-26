@@ -8,6 +8,7 @@ class AppPallete {
   static const Color focusBorderColor = Color(0xFFD4266D);
   static const Color borderColor = Color(0xA7C04576);
   static const Color errorColor = Colors.red;
+  static const Color shadow = Color(0xFF906c85);
   // static const Color focusBorderColor =  Color(0xFFffa0ff);
   // static const Color focusBorderColor =  Color(0xFFffa0ff);
   // static const Color focusBorderColor =  Color(0xFFffa0ff);
