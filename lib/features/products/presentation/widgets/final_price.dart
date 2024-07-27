@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:banana/core/theme/app_pallete.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
 import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
-import 'package:flutter/material.dart';
 
 class FinalPrice extends StatelessWidget {
   const FinalPrice({
@@ -39,7 +40,8 @@ class FinalPrice extends StatelessWidget {
           Text(
             formatPrice(product.price),
             style: const TextStyle(
-                color: Colors.red, decoration: TextDecoration.lineThrough),
+                color: AppPallete.errorColor,
+                decoration: TextDecoration.lineThrough),
           ),
         ],
       ),

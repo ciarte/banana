@@ -1,7 +1,6 @@
+import 'package:intl/intl.dart';
 import 'package:banana/features/products/data/datasource/product_api_service.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
-
-import 'package:intl/intl.dart';
 
 class ProductViewmodel {
   static final ProductApiService productApiService = ProductApiService();

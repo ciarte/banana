@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
 import 'package:banana/features/products/data/datasource/product_api_service.dart';
-import 'package:banana/core/utils/search_delegate.dart';
+import 'package:banana/features/products/presentation/utils/search_delegate.dart';
 import 'package:banana/core/theme/app_pallete.dart';
 
 class CustomAppBar extends StatelessWidget {

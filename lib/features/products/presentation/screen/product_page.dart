@@ -1,4 +1,4 @@
-import 'package:banana/core/widgets/custom_app_bar.dart';
+import 'package:banana/core/presentation/widgets/custom_app_bar.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
 import 'package:banana/features/products/presentation/screen/screens.dart';
 import 'package:flutter/material.dart';

@@ -1,9 +1,7 @@
-import 'package:banana/core/theme/app_pallete.dart';
-import 'package:banana/core/widgets/custom_filled_button.dart';
-import 'package:banana/core/widgets/textCreatedBy.dart';
-import 'package:banana/features/products/domain/entities/product.dart';
-import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:banana/core/core.dart';
+import 'package:banana/features/products/domain/entities/product.dart';
+import 'package:banana/features/products/presentation/widgets/widgets.dart';
 
 class DetailProduct extends StatelessWidget {
   const DetailProduct({
@@ -45,47 +43,23 @@ class DetailProduct extends StatelessWidget {
                                           fontWeight: FontWeight.w700,
                                           fontSize: 22,
                                           overflow: TextOverflow.ellipsis)),
-                                  SizedBox(
-                                    height: 30,
+                                  const SizedBox(
+                                    height: 10,
                                   ),
                                   TextCreatedBy(product: product.brand),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 30,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5),
-                                    child: Container(
-                                      height: 120,
-                                      constraints: const BoxConstraints(
-                                        maxHeight: 80,
-                                      ),
-                                      child: Text(
-                                        product.description,
-                                        maxLines: 4,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
+                                  ProductDescription(
+                                      description: product.description,
+                                      title: product.title),
+                                  ProductTags(productTags: product.tags),
+                                  ProductTotalPrice(
+                                    price: product.price,
+                                    discountPercentage:
+                                        product.discountPercentage,
                                   ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  TextCreatedBy(product: product.brand),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 30.0),
-                                      child: Text(
-                                        'Final: USD ${ProductViewmodel.applyDiscount(product.price, product.discountPercentage)}',
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
+                                  ProductRating(productRating: product.rating),
                                   Container(
                                       margin: const EdgeInsets.only(
                                           top: 16, bottom: 10),
@@ -109,22 +83,7 @@ class DetailProduct extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 300,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: product.images.length,
-            itemBuilder: (context, index) {
-              String photoUrl = product.images[index];
-              return FadeInImage.assetNetwork(
-                placeholder: 'assets/images/banana_back.jpg',
-                fadeInDuration: const Duration(milliseconds: 2000),
-                image: photoUrl,
-                fit: BoxFit.cover,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.error, size: 50);
-                },
-              );
-            },
-          ),
+          child: ProductImages(images: product.images),
         ),
       ),
     ]);

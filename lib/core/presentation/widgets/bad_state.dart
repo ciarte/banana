@@ -1,15 +1,18 @@
 import 'package:flutter/widgets.dart';
 
 class BadState extends StatelessWidget {
-  final String text;
+  final String? text;
 
-  const BadState({super.key, required this.text});
+  const BadState({super.key, this.text});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        children: [Image.asset('assets/images/banana_sad.png'), Text(text)],
+        children: [
+          Image.asset('assets/images/banana_sad.png'),
+          Text(text != null ? text! : '')
+        ],
       ),
     );
   }

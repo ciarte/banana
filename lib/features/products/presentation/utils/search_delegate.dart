@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:banana/core/widgets/bad_state.dart';
+import 'package:flutter/material.dart';
+import 'package:banana/core/presentation/widgets/bad_state.dart';
 import 'package:banana/features/products/presentation/screen/product_detail_page.dart';
 import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
 import 'package:banana/features/products/presentation/widgets/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
 
 typedef SearchProductCallback = Future<List<Product>> Function(String query);
