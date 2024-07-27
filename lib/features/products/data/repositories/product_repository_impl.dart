@@ -7,7 +7,7 @@ class ProductRepositoryImpl extends ProductRepository {
   ProductRepositoryImpl(this.productApiService);
 
   @override
-  Future<List<Product>> getAllProducts() {
+  Future<List<Product>> getAllProducts({int limit = 10, int skip = 0}) {
     return productApiService.fetchProductList();
   }
 

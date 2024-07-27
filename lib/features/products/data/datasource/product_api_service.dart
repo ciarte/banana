@@ -9,10 +9,11 @@ class ProductApiService {
   static final Dio _dio = Dio();
   static const String baseUrl = Config.baseUrl;
 
-  Future<List<Product>> fetchProductList() async {
+  Future<List<Product>> fetchProductList({int limit = 10, int skip = 0}) async {
     try {
       Response response = await _dio.get(
         '$baseUrl/products',
+        queryParameters: {'limit': limit, 'skip': skip},
       );
 
       if (response.statusCode == 200) {
