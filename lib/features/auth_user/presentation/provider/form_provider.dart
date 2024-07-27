@@ -45,8 +45,8 @@ class FormProvider with ChangeNotifier {
       notifyListeners();
 
       try {
-        User credentialsValid = await loginUseCase.login(_username, _password);
-        print(credentialsValid);
+        await loginUseCase.login(_username, _password);
+
         _isLoading = false;
         if (context.mounted) {
           Navigator.pushReplacementNamed(context, '/products');

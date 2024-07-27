@@ -18,7 +18,6 @@ class Product {
   final Dimensions dimensions;
   final String warrantyInformation;
   final String shippingInformation;
-
   final List<String> images;
   final String thumbnail;
 

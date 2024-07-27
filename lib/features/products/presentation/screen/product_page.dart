@@ -22,12 +22,6 @@ class _ProductsPageState extends State<ProductsPage> {
     super.initState();
 
     _scrollController.addListener(() {
-      print('Scroll Position: ${_scrollController.position.pixels}');
-      print('Scroll Position: ${_scrollController.position.pixels + 400}');
-      print('Scroll Position: ${_scrollController.position.maxScrollExtent}');
-      print(
-          'Scroll func: ${_scrollController.position.pixels + 400 >= _scrollController.position.maxScrollExtent}');
-
       if ((_scrollController.position.pixels + 400) >=
           _scrollController.position.maxScrollExtent) {
         _loadNextPage();
@@ -38,7 +32,6 @@ class _ProductsPageState extends State<ProductsPage> {
   void _loadNextPage() {
     final provider = Provider.of<ProductProvider>(context, listen: false);
     if (!provider.isFetching) {
-      print(provider.isFetching);
       provider.refresh();
     }
   }

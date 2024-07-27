@@ -1,7 +1,7 @@
 import 'package:banana/core/theme/app_pallete.dart';
 import 'package:banana/core/widgets/custom_filled_button.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
-import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
+import 'package:banana/features/products/presentation/widgets/final_price.dart';
 
 import 'package:flutter/material.dart';
 
@@ -59,7 +59,7 @@ class ProductCard extends StatelessWidget {
                               return child;
                             } else {
                               return const SizedBox(
-                                height: 180,
+                                height: 120,
                                 width: 120,
                                 child: Center(
                                   child: CircularProgressIndicator(),
@@ -67,7 +67,16 @@ class ProductCard extends StatelessWidget {
                               );
                             }
                           },
-                          height: 140,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const SizedBox(
+                              height: 180,
+                              width: 120,
+                              child: Center(
+                                child: Icon(Icons.error, size: 50),
+                              ),
+                            );
+                          },
+                          height: 120,
                           width: 120,
                           product.thumbnail,
                           filterQuality: FilterQuality.medium,
@@ -115,38 +124,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            Positioned(
-              bottom: 12,
-              right: 15,
-              child: Column(
-                children: [
-                  Text(
-                    'Now:',
-                    style: TextStyle(
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.3),
-                          offset: const Offset(3, 3),
-                          blurRadius: 3,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                    ProductViewmodel.applyDiscount(
-                        product.price, product.discountPercentage),
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    formatPrice(product.price),
-                    style: const TextStyle(
-                        color: Colors.red,
-                        decoration: TextDecoration.lineThrough),
-                  ),
-                ],
-              ),
-            ),
+            FinalPrice(product: product, formatPrice: formatPrice),
           ],
         ),
       ),

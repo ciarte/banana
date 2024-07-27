@@ -48,18 +48,20 @@ class ProductProvider with ChangeNotifier {
 
   Future<void> refresh() async {
     if (isFetching) return;
+    _isFetching = true;
+    notifyListeners();
     try {
       List<Product> moreProducts =
           await productService.fetchProductList(skip: skip);
+      skip += limit;
       if (products.isNotEmpty) {
         _products.addAll(moreProducts);
       }
     } catch (e) {
       print('Error: $e');
     }
-    skip += limit;
     _isFetching = false;
-    print(_isFetching);
+
     notifyListeners();
   }
 

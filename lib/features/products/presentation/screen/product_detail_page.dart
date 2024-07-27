@@ -36,7 +36,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         Product product = productProvider.product!;
         return Scaffold(
           appBar: AppBar(
-            title: Text(product.title),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
