@@ -5,9 +5,11 @@ import 'package:banana/features/auth_user/domain/entities/user.dart';
 import 'package:banana/features/auth_user/domain/mapper/user_mapper.dart';
 import 'package:dio/dio.dart';
 
+String apiUrl = Enviroments.apiUrl;
+
 class AuthenticationApiService {
   static final Dio _dio = Dio();
-  static const String baseUrl = Config.baseUrl;
+  String baseUrl = apiUrl;
 
   Future<User> login(LoginDataModel loginData) async {
     try {

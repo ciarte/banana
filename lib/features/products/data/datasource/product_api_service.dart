@@ -5,9 +5,11 @@ import 'package:banana/features/products/domain/entities/product.dart';
 import 'package:banana/features/products/domain/mappers/produc_mapper.dart';
 import 'package:dio/dio.dart';
 
+String apiUrl = Enviroments.apiUrl;
+
 class ProductApiService {
   static final Dio _dio = Dio();
-  static const String baseUrl = Config.baseUrl;
+  String baseUrl = apiUrl;
 
   Future<List<Product>> fetchProductList({int limit = 10, int skip = 0}) async {
     try {

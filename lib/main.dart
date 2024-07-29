@@ -2,6 +2,7 @@ import 'package:banana/core/core.dart';
 import 'package:banana/core/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'features/auth_user/data/datasource/aut_api_service.dart';
 import 'features/auth_user/data/repositories/auth_repository_impl.dart';
 import 'features/auth_user/domain/usecase/login_usecase.dart';
@@ -10,7 +11,8 @@ import 'features/auth_user/presentation/provider/user_provider.dart';
 import 'features/products/data/datasource/product_api_service.dart';
 import 'features/products/presentation/provider/product_provider.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
