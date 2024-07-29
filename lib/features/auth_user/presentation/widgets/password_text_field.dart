@@ -19,7 +19,7 @@ class _PasswordFieldState extends State<PasswordField> {
 
   void _toggleVisibility() {
     setState(() {
-      _obscureText = !_obscureText; // Alterna entre mostrar y ocultar
+      _obscureText = !_obscureText;
     });
   }
 

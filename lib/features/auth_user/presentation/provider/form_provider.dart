@@ -1,10 +1,9 @@
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:banana/features/auth_user/domain/usecase/login_usecase.dart';
 import 'package:banana/features/auth_user/presentation/provider/user_provider.dart';
-import 'package:flutter/material.dart';
-
 import 'package:banana/core/theme/app_pallete.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class FormProvider with ChangeNotifier {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
