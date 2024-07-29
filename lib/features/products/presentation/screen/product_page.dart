@@ -1,8 +1,8 @@
-import 'package:banana/core/presentation/widgets/custom_app_bar.dart';
-import 'package:banana/features/products/domain/entities/product.dart';
-import 'package:banana/features/products/presentation/screen/screens.dart';
+import 'package:banana/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:banana/features/products/domain/entities/product.dart';
 import 'package:banana/features/products/presentation/provider/product_provider.dart';
 import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
 import 'package:banana/features/products/presentation/widgets/product_card.dart';
@@ -54,6 +54,10 @@ class _ProductsPageState extends State<ProductsPage> {
           if (provider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
+          if (provider.errorMessage != null) {
+            return NotFoundScreen(
+                routeName: '/login', text: provider.errorMessage.toString());
+          }
 
           return Column(
             children: [
@@ -72,13 +76,8 @@ class _ProductsPageState extends State<ProductsPage> {
                             product: product,
                             formatPrice: ProductViewmodel.formatPrice,
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductDetailPage(
-                                      id: product.id.toString()),
-                                ),
-                              );
+                              context.go(
+                                  '/main/0/products/${product.id.toString()}');
                             },
                           );
                         },

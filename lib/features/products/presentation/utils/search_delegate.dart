@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:banana/core/presentation/widgets/bad_state.dart';
-import 'package:banana/features/products/presentation/screen/product_detail_page.dart';
 import 'package:banana/features/products/presentation/viewmodel/product_viewmodel.dart';
 import 'package:banana/features/products/presentation/widgets/widgets.dart';
 import 'package:banana/features/products/domain/entities/product.dart';
+import 'package:go_router/go_router.dart';
 
 typedef SearchProductCallback = Future<List<Product>> Function(String query);
 
@@ -97,11 +97,7 @@ class ProductSearchDelegate extends SearchDelegate<Product?> {
               product: product,
               formatPrice: ProductViewmodel.formatPrice,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ProductDetailPage(id: product.id.toString())));
+                context.go('/main/0/products/${product.id.toString()}');
               },
             );
           },
@@ -139,11 +135,7 @@ class ProductSearchDelegate extends SearchDelegate<Product?> {
               product: product,
               formatPrice: ProductViewmodel.formatPrice,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ProductDetailPage(id: product.id.toString())));
+                context.go('/main/0/products/${product.id.toString()}');
               },
             );
           },

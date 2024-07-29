@@ -1,29 +1,29 @@
+import 'package:banana/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NotFoundScreen extends StatelessWidget {
-  const NotFoundScreen({super.key});
+  final String routeName;
+  final String text;
+
+  const NotFoundScreen(
+      {super.key, required this.routeName, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Not Found'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Page Not Found',
-              style: TextStyle(fontSize: 24),
-            ),
+            BadState(text: text),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/products');
-              },
-              child: const Text('Back to Products'),
-            ),
+            CustomFilledButton(
+                text: 'Back to Home page',
+                buttonColor: AppPallete.focusBorderColor,
+                onPressed: () {
+                  context.push(routeName);
+                }),
           ],
         ),
       ),

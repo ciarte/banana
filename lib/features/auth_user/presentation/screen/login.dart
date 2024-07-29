@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
+  static const String name = 'login';
   const Login({super.key});
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,7 @@ class ProductProvider with ChangeNotifier {
   Product? _product;
   bool _isLoading = false;
   bool _isFetching = false;
+  String? _errorMessage;
   String _searchText = '';
   final TextEditingController searchController = TextEditingController();
   final FocusNode searchFocus = FocusNode();
@@ -25,10 +26,12 @@ class ProductProvider with ChangeNotifier {
   String get searchText => _searchText;
   int limit = 10;
   int skip = 0;
+  String? get errorMessage => _errorMessage;
 
   Future<void> fetchProducts() async {
     _isLoading = true;
     _isFetching = true;
+    _errorMessage = null;
     notifyListeners();
 
     try {
@@ -38,17 +41,18 @@ class ProductProvider with ChangeNotifier {
       }
       skip += limit;
     } catch (e) {
-      print('Error: $e');
+      _errorMessage = 'Error: $e';
+    } finally {
+      _isFetching = false;
+      _isLoading = false;
+      notifyListeners();
     }
-
-    _isFetching = false;
-    _isLoading = false;
-    notifyListeners();
   }
 
   Future<void> refresh() async {
     if (isFetching) return;
     _isFetching = true;
+    _errorMessage = null;
     notifyListeners();
     try {
       List<Product> moreProducts =
@@ -58,15 +62,16 @@ class ProductProvider with ChangeNotifier {
         _products.addAll(moreProducts);
       }
     } catch (e) {
-      print('Error: $e');
+      _errorMessage = 'Error: $e';
+    } finally {
+      _isFetching = false;
+      notifyListeners();
     }
-    _isFetching = false;
-
-    notifyListeners();
   }
 
   Future<Product> fetchProductById(String id) async {
     _isLoading = true;
+    _errorMessage = null;
     notifyListeners();
 
     try {
@@ -75,7 +80,7 @@ class ProductProvider with ChangeNotifier {
       _product = fetchedProduct;
       return _product!;
     } catch (e) {
-      print('Error al cargar el producto: $e');
+      _errorMessage = 'Error al cargar el producto: $e';
       throw Exception('Error al cargar el producto: $e');
     } finally {
       _isLoading = false;
